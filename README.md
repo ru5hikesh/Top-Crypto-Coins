@@ -7,5 +7,5 @@ A modern web application that displays the latest cryptocurrency prices using th
 - Real-time price updates
 - Responsive design
 
-##Website Link:
+## Website Link:
 https://top-coins.netlify.app
