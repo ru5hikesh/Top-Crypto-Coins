@@ -8,4 +8,4 @@ A modern web application that displays the latest cryptocurrency prices using th
 - Responsive design
 
 ## Website Link:
-[https://top-coins.netlify.app](https://top-crypto-coins-d7x8pbn4v-ru5hikeshs-projects.vercel.app/home)
+https://top-crypto-coins-d7x8pbn4v-ru5hikeshs-projects.vercel.app/
