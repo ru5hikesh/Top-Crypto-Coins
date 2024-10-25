@@ -12,6 +12,7 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 40px 20px;
+  
 }
 
 .title {
@@ -22,6 +23,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 3px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  border: #1a1a1a;
 }
 
 .coins-table {
