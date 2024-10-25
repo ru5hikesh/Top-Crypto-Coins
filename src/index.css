@@ -1,48 +1,105 @@
 /* Coins.css */
 body {
-  font-family: 'Inter', sans-serif;
-
-  background-color: #fff;
-  color: #000;
-  line-height: 1.5;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+  color: #e0e0e0;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
 }
 
 .coins-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 40px 20px;
 }
 
 .title {
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .coins-table {
-  border: 1px solid #eff2f5;
-  border-radius: 8px;
+  border-radius: 14px;
   overflow: hidden;
+  background: rgba(24, 24, 24, 0.05);
+  backdrop-filter: blur(5px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .coins-header {
-  background-color: #f8fafd;
+  background: rgba(62, 62, 62, 0.1);
   font-weight: 600;
+  color: #21f600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .coin-row {
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #eff2f5;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background-color 0.3s;
+  background-color: rgba(20, 20, 20, 0.8);
+}
+
+.coin-row:hover {
+  background-color: rgba(30, 30, 30, 0.9);
 }
 
 .coin-cell {
-  padding: 16px;
+  padding: 5px;
   flex: 1;
+  text-align: left;
+}
+
+.coin-cell:first-child {
+  text-align: left;
+  flex: 0.5; /* Make the # column smaller */
 }
 
 .coin-name {
+  font-size: 0.9em; /* Reduced font size */
   display: flex;
   align-items: center;
   font-weight: 600;
+  color: #e0e0e0;
+}
+
+.coin-name img {
+  width: 24px; /* Reduced from 28px */
+  height: 24px; /* Reduced from 28px */
+  margin-right: 8px; /* Adjusted margin */
+  border-radius: 50%;
+  background: white;
+  padding: 2px;
+}
+
+.positive {
+  color: #00ff00;
+}
+
+.negative {
+  color: #ff4136;
+}
+
+@media (max-width: 768px) {
+  .coins-table {
+    font-size: 0.9em;
+  }
+
+  .coin-cell {
+    padding: 15px 10px;
+  }
+
+  .coin-name img {
+    width: 28px;
+    height: 28px;
+    margin-right: 10px;
+  }
 }

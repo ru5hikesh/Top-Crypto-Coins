@@ -1,0 +1,43 @@
+.news-container {
+    position: absolute;
+    top: 90px;
+    left: 20px;
+    width: 300px;
+    background-color: #1a1a1a;
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.coin-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.coin-details img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 15px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+}
+
+.coin-details p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #ffffff;
+    text-align: center;
+}
+
+h2 {
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 1px solid #ffffff;
+    padding-bottom: 10px;
+}

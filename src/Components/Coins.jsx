@@ -1,18 +1,22 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Coins() {
     const [coins, setCoins] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('/api/v1/cryptocurrency/listings/latest', {
-            headers: {
-                'X-CMC_PRO_API_KEY': '021de370-ae36-437b-93fd-ece705da9ed0',
-            },
-        })
+        const apiUrl = 'https://api.coingecko.com/api/v3/coins/markets';
+        
+        fetch(`${apiUrl}?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false`)
             .then((res) => res.json())
-            .then((data) => setCoins(data.data || []))
+            .then((data) => setCoins(data || []))
             .catch((err) => console.error(err));
     }, []);
+
+    const handleCoinClick = (coin) => {
+        navigate('/news', { state: { coin } }); // Pass the selected coin data
+    };
 
     return (
         <div className="coins-container">
@@ -31,20 +35,19 @@ function Coins() {
                 </div>
                 <div className="coins-body">
                     {coins.map((coin, index) => (
-                        <div className="coin-row" key={coin.id}>
+                        <div className="coin-row" key={coin.id} onClick={() => handleCoinClick(coin)}>
                             <div className="coin-cell">{index + 1}</div>
                             <div className="coin-cell coin-name">
-                                <img src={`https://s2.coinmarketcap.com/static/img/coins/64x64/${coin.id}.png`} alt={coin.name} />
+                                <img src={coin.image} alt={coin.name} />
                                 <span>{coin.name}</span>
-
                             </div>
-                            <div className="coin-cell">${coin.quote.USD.price.toFixed(2)}</div>
-                            <div className={`coin-cell ${coin.quote.USD.percent_change_24h > 0 ? 'positive' : 'negative'}`}>
-                                {coin.quote.USD.percent_change_24h.toFixed(2)}%
+                            <div className="coin-cell">${coin.current_price.toFixed(2)}</div>
+                            <div className={`coin-cell ${coin.price_change_percentage_24h > 0 ? 'positive' : 'negative'}`}>
+                                {coin.price_change_percentage_24h.toFixed(2)}%
                             </div>
-                            <div className="coin-cell">${(coin.quote.USD.market_cap / 1e9).toFixed(2)}B</div>
-                            <div className="coin-cell">${(coin.quote.USD.volume_24h / 1e9).toFixed(2)}B</div>
-                            <div className="coin-cell">{(coin.circulating_supply / 1e6).toFixed(2)}M {coin.symbol}</div>
+                            <div className="coin-cell">${(coin.market_cap / 1e9).toFixed(2)}B</div>
+                            <div className="coin-cell">${(coin.total_volume / 1e9).toFixed(2)}B</div>
+                            <div className="coin-cell">{(coin.circulating_supply / 1e6).toFixed(2)}M {coin.symbol.toUpperCase()}</div>
                         </div>
                     ))}
                 </div>
