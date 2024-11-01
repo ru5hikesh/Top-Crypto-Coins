@@ -1,3 +1,4 @@
+// News.jsx
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
@@ -11,7 +12,7 @@ import {
     ResponsiveContainer,
 } from 'recharts';
 import './News.css';
-
+import ActualNews from './ActualNews';
 
 function News() {
     const location = useLocation();
@@ -59,9 +60,8 @@ function News() {
         return <div>{error}</div>;
     }
 
-    // Determine if there's a loss in prices based on the first and last price in ohlcData
     const isPriceDropped = ohlcData.length > 1 && ohlcData[ohlcData.length - 1].price < ohlcData[0].price;
-    const areaFillColor = isPriceDropped ? "#ff0000" : "#28a745"; // Red for loss, green for profit
+    const areaFillColor = isPriceDropped ? "#ff0000" : "#28a745";
 
     return (
         <div className="news-container">
@@ -82,7 +82,7 @@ function News() {
                     <h3>Price Chart</h3>
                     <div className="coin-chart">
                         <ResponsiveContainer width="100%" height={300}>
-                            <AreaChart data={ohlcData.slice(-7)}> {/* Limit data to last 7 items */}
+                            <AreaChart data={ohlcData.slice(-7)}>
                                 <defs>
                                     <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
                                         <stop offset="5%" stopColor={areaFillColor} stopOpacity={0.8} />
@@ -106,7 +106,7 @@ function News() {
                                 />
                                 <ReferenceLine
                                     y={currentPrice}
-                                    stroke="#ff0000" // Always show red for current price line
+                                    stroke="#ff0000"
                                     strokeDasharray="3 3"
                                     label="Current Price"
                                 />
@@ -116,9 +116,9 @@ function News() {
                 </div>
             </div>
 
+            <ActualNews coinSymbol={coin.symbol} />
         </div>
     );
-
 }
 
 export default News;

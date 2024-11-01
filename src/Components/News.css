@@ -30,6 +30,7 @@
     /* Set width to be smaller than the chart box */
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
     /* Box shadow for effect */
+    margin-bottom: 30px;
 }
 
 .coin-chart-box {
@@ -47,6 +48,7 @@
     /* Box shadow for effect */
     height: 400px;
     /* Increase the height of the chart box */
+    margin-bottom: 30px;
 }
 
 .coin-details {
