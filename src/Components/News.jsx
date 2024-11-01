@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
-    LineChart,
-    Line,
+    AreaChart,
+    Area,
     XAxis,
     YAxis,
     CartesianGrid,
@@ -11,6 +11,7 @@ import {
     ResponsiveContainer,
 } from 'recharts';
 import './News.css';
+
 
 function News() {
     const location = useLocation();
@@ -27,20 +28,19 @@ function News() {
     useEffect(() => {
         const fetchOhlcData = async () => {
             try {
-                const response = await fetch(`https://api.coingecko.com/api/v3/coins/${coin.id}/ohlc?vs_currency=usd&days=30`);
+                const response = await fetch(`https://api.coingecko.com/api/v3/coins/${coin.id}/ohlc?vs_currency=usd&days=7`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 const data = await response.json();
 
-                // Transform the data to fit the chart format with shorter date
                 const chartData = data.map(item => ({
-                    name: new Date(item[0]).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit' }), // Short date format (MM/DD)
-                    price: item[4], // Closing price is at index 4
+                    name: new Date(item[0]).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit' }),
+                    price: item[4],
                 }));
 
                 setOhlcData(chartData);
-                setCurrentPrice(coin.current_price); // Set current price
+                setCurrentPrice(coin.current_price);
             } catch (err) {
                 setError('Failed to fetch OHLC data');
             } finally {
@@ -58,6 +58,10 @@ function News() {
     if (error) {
         return <div>{error}</div>;
     }
+
+    // Determine if there's a loss in prices based on the first and last price in ohlcData
+    const isPriceDropped = ohlcData.length > 1 && ohlcData[ohlcData.length - 1].price < ohlcData[0].price;
+    const areaFillColor = isPriceDropped ? "#ff0000" : "#28a745"; // Red for loss, green for profit
 
     return (
         <div className="news-container">
@@ -78,31 +82,43 @@ function News() {
                     <h3>Price Chart</h3>
                     <div className="coin-chart">
                         <ResponsiveContainer width="100%" height={300}>
-                            <LineChart data={ohlcData}>
+                            <AreaChart data={ohlcData.slice(-7)}> {/* Limit data to last 7 items */}
+                                <defs>
+                                    <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="5%" stopColor={areaFillColor} stopOpacity={0.8} />
+                                        <stop offset="95%" stopColor={areaFillColor} stopOpacity={0} />
+                                    </linearGradient>
+                                </defs>
                                 <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
-                                <XAxis dataKey="name" />
-                                <YAxis />
+                                <XAxis dataKey="name" stroke="#fff" tickCount={7} />
+                                <YAxis stroke="#fff" tickCount={6} domain={['auto', 'auto']} />
                                 <Tooltip
-                                    contentStyle={{ backgroundColor: '#2a2a2a', border: 'none', borderRadius: '8px' }}
+                                    contentStyle={{ backgroundColor: '#2a2a2a', borderRadius: '8px' }}
                                     itemStyle={{ color: '#fff' }}
+                                    labelStyle={{ color: '#f7931a' }}
                                 />
-                                <Line
+                                <Area
                                     type="monotone"
                                     dataKey="price"
                                     stroke="#f7931a"
-                                    strokeWidth={3}
-                                    dot={{ stroke: '#f7931a', strokeWidth: 2 }}
-                                    isAnimationActive={false}
+                                    fillOpacity={1}
+                                    fill={`url(#colorPrice)`}
                                 />
-                                {/* Current Price Marker */}
-                                <ReferenceLine y={currentPrice} stroke="#ff0000" strokeDasharray="3 3" label="Current Price" />
-                            </LineChart>
+                                <ReferenceLine
+                                    y={currentPrice}
+                                    stroke="#ff0000" // Always show red for current price line
+                                    strokeDasharray="3 3"
+                                    label="Current Price"
+                                />
+                            </AreaChart>
                         </ResponsiveContainer>
                     </div>
                 </div>
             </div>
+
         </div>
     );
+
 }
 
 export default News;

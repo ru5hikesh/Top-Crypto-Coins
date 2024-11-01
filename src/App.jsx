@@ -4,6 +4,7 @@ import Coins from './Components/Coins';
 import Navbar from './Components/Navbar';
 import News from './Components/News';
 
+
 function App() {
   return (
     <Router>

@@ -1,33 +1,52 @@
 .news-container {
-    margin-top: 80px;
-    padding-top: 60px; /* Add padding to account for the navbar height */
-    position: relative; /* Ensure the container is positioned relative to its normal position */
-    z-index: 1; /* Set a z-index to ensure it's above the navbar */
+    margin-top: 20px;
+    padding-top: 20px;
+    /* Add padding to account for the navbar height */
+    position: relative;
+    /* Ensure the container is positioned relative to its normal position */
+    z-index: 1;
+    /* Set a z-index to ensure it's above the navbar */
 }
 
 .boxes-wrapper {
-    display: flex; /* Use flexbox to arrange boxes side by side */
-    justify-content: space-between; /* Space between the two boxes */
-    margin-top: 50px; /* Add space above the boxes */
+    display: flex;
+    /* Use flexbox to arrange boxes side by side */
+    justify-content: space-between;
+    /* Space between the two boxes */
+    margin-top: 50px;
+    /* Add space above the boxes */
 }
 
 .coin-details-box {
-    background-color: #2a2a2a; /* Background color for the details box */
-    border: 2px solid #ffffff; /* White border */
-    border-radius: 10px; /* Rounded corners */
-    padding: 15px; /* Padding inside the box */
-    width: 20%; /* Set width to be smaller than the chart box */
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); /* Box shadow for effect */
+    background-color: #2a2a2a;
+    /* Background color for the details box */
+    border: 2px solid #ffffff;
+    /* White border */
+    border-radius: 10px;
+    /* Rounded corners */
+    padding: 15px;
+    /* Padding inside the box */
+    width: 20%;
+    /* Set width to be smaller than the chart box */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    /* Box shadow for effect */
 }
 
 .coin-chart-box {
-    background-color: #2a2a2a; /* Background color for the chart box */
-    border: 2px solid #ffffff; /* White border */
-    border-radius: 10px; /* Rounded corners */
-    padding: 15px; /* Padding inside the box */
-    width: 76%; /* Set width to be larger than the details box */
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); /* Box shadow for effect */
-    height: 400px; /* Increase the height of the chart box */
+    background-color: #2a2a2a;
+    /* Background color for the chart box */
+    border: 2px solid #ffffff;
+    /* White border */
+    border-radius: 10px;
+    /* Rounded corners */
+    padding: 15px;
+    /* Padding inside the box */
+    width: 76%;
+    /* Set width to be larger than the details box */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    /* Box shadow for effect */
+    height: 400px;
+    /* Increase the height of the chart box */
 }
 
 .coin-details {
