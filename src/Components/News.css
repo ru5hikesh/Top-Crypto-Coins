@@ -17,22 +17,6 @@
     /* Add space above the boxes */
 }
 
-.coin-details-box {
-    background-color: #2a2a2a;
-    /* Background color for the details box */
-    border: 2px solid #ffffff;
-    /* White border */
-    border-radius: 10px;
-    /* Rounded corners */
-    padding: 15px;
-    /* Padding inside the box */
-    width: 20%;
-    /* Set width to be smaller than the chart box */
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-    /* Box shadow for effect */
-    margin-bottom: 30px;
-}
-
 .coin-chart-box {
     background-color: #2a2a2a;
     /* Background color for the chart box */
@@ -40,13 +24,13 @@
     /* White border */
     border-radius: 10px;
     /* Rounded corners */
-    padding: 15px;
+    padding: 10px;
     /* Padding inside the box */
     width: 76%;
     /* Set width to be larger than the details box */
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
     /* Box shadow for effect */
-    height: 400px;
+    height: 450px;
     /* Increase the height of the chart box */
     margin-bottom: 30px;
 }
@@ -55,21 +39,40 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.coin-details img {
+.coin-image {
     width: 100px;
     height: 100px;
     margin-bottom: 15px;
     border-radius: 50%;
     border: 2px solid #ffffff;
+    transition: transform 0.3s;
 }
 
-.coin-details p {
+.coin-image:hover {
+    transform: scale(1.1);
+}
+
+.detail-item {
     margin: 5px 0;
     font-size: 14px;
     color: #ffffff;
     text-align: center;
+    padding: 8px;
+    border: 2px solid #ffffff;
+    border-radius: 5px;
+    width: 100%;
+    transition: background 0.3s, color 0.3s;
+}
+
+.detail-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #f7931a;
 }
 
 h2 {
@@ -84,6 +87,7 @@ h2 {
 }
 
 h3 {
+    margin-top: 30px;
     color: #ffffff;
     text-align: center;
     margin-bottom: 15px;

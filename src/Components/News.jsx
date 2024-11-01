@@ -14,6 +14,7 @@ import {
 import './News.css';
 import ActualNews from './ActualNews';
 
+
 function News() {
     const location = useLocation();
     const { coin } = location.state || {};
@@ -67,17 +68,18 @@ function News() {
         <div className="news-container">
             <div className="boxes-wrapper">
                 <div className="coin-details-box">
-                    <h3>Coin Details</h3>
+
                     <div className="coin-details">
-                        <img src={coin.image} alt={coin.name} />
-                        <p>Symbol: {coin.symbol.toUpperCase()}</p>
-                        <p>Current Price: ${coin.current_price.toFixed(2)}</p>
-                        <p>Market Cap: ${(coin.market_cap / 1e9).toFixed(2)}B</p>
-                        <p>Volume (24h): ${(coin.total_volume / 1e9).toFixed(2)}B</p>
-                        <p>Circulating Supply: {(coin.circulating_supply / 1e6).toFixed(2)}M</p>
-                        <p>Price Change (24h): {coin.price_change_percentage_24h.toFixed(2)}%</p>
+                        <img src={coin.image} alt={coin.name} className="coin-image" />
+                        <p className="detail-item">Symbol: <span>{coin.symbol.toUpperCase()}</span></p>
+                        <p className="detail-item">Current Price: <span>${coin.current_price.toFixed(2)}</span></p>
+                        <p className="detail-item">Market Cap: <span>${(coin.market_cap / 1e9).toFixed(2)}B</span></p>
+                        <p className="detail-item">Volume (24h): <span>${(coin.total_volume / 1e9).toFixed(2)}B</span></p>
+                        <p className="detail-item">Circulating Supply: <span>{(coin.circulating_supply / 1e6).toFixed(2)}M</span></p>
+                        <p className="detail-item">Price Change (24h): <span>{coin.price_change_percentage_24h.toFixed(2)}%</span></p>
                     </div>
                 </div>
+
                 <div className="coin-chart-box">
                     <h3>Price Chart</h3>
                     <div className="coin-chart">
