@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import './ActualNews.css';
 
 const ActualNews = () => {
     const location = useLocation();
-    const { coin } = location.state || {}; // Get the selected coin data from location state
+    const { coin } = location.state || {};
     const [news, setNews] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [votes, setVotes] = useState({});
     const API_URL = `https://cryptopanic.com/api/free/v1/posts/`;
     const AUTH_TOKEN = '3c5f64f254c23f3e93e3502ca0d8b3b796be6733';
 
@@ -15,17 +16,18 @@ const ActualNews = () => {
         if (coin) {
             const fetchNews = async () => {
                 try {
-                    const response = await axios.get(API_URL, {
-                        params: {
-                            auth_token: AUTH_TOKEN,
-                            currencies: coin.symbol.toLowerCase(), // Use the coin symbol for fetching news
-                            public: true
-                        }
+                    const response = await fetch(`${API_URL}?auth_token=${AUTH_TOKEN}&currencies=${coin.symbol.toLowerCase()}&public=true`);
+                    if (!response.ok) throw new Error('Failed to fetch news');
+                    const data = await response.json();
+                    setNews(data.results);
+                    // Initialize votes
+                    const initialVotes = {};
+                    data.results.forEach(article => {
+                        initialVotes[article.id] = { up: 0, down: 0 };
                     });
-                    console.log(response.data.results); // Log the response to check the structure
-                    setNews(response.data.results);
+                    setVotes(initialVotes);
                 } catch (error) {
-                    console.error('Error fetching news:', error);
+                    setError(error.message);
                 } finally {
                     setLoading(false);
                 }
@@ -35,39 +37,85 @@ const ActualNews = () => {
         }
     }, [coin]);
 
-    const handleArticleClick = (article) => {
-        // Check if the original source URL is available
-        const originalUrl = article.url; // Adjust this line based on the API response structure
-        if (originalUrl) {
-            window.open(originalUrl, '_blank'); // Open the actual article link in a new tab
-        } else {
-            console.error('Original article URL not found:', article); // Log an error if URL is not found
+    const handleArticleClick = (article, event) => {
+        // Prevent article click when clicking on voting buttons
+        if (event.target.closest('.voting-buttons')) return;
+
+        if (article.url) {
+            window.open(article.url, '_blank', 'noopener noreferrer');
         }
     };
 
+    const handleVote = (articleId, voteType) => {
+        setVotes(prev => ({
+            ...prev,
+            [articleId]: {
+                ...prev[articleId],
+                [voteType]: prev[articleId][voteType] + 1
+            }
+        }));
+    };
+
     if (loading) {
-        return <p>Loading news...</p>;
+        return (
+            <div className="loading-container">
+                <div className="loading-skeleton">
+                    <div className="skeleton-item"></div>
+                    <div className="skeleton-item"></div>
+                    <div className="skeleton-item"></div>
+                </div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="error-message">
+                <p>⚠️ {error}</p>
+            </div>
+        );
     }
 
     return (
         <div className="news-section">
-            <h2>Latest News on {coin?.name}</h2>
-            {news.length > 0 ? (
-                news.map((article) => (
-                    <div
-                        key={article.id}
-                        className="news-article"
-                        onClick={() => handleArticleClick(article)} // Call the click handler with the article
-                    >
-                        <h3>{article.title}</h3>
-                        <p>Source: {article.source.title}</p>
-                        <p>Published at: {new Date(article.published_at).toLocaleString()}</p>
-                        <p>Domain: {article.domain}</p>
+            <div className="news-header">
+                <h2>Latest {coin?.name} News</h2>
+                <p className="subtitle">Stay updated with the latest cryptocurrency news and trends</p>
+            </div>
+
+            <div className="news-grid">
+                {news.length > 0 ? (
+                    news.map((article) => (
+                        <div
+                            key={article.id}
+                            className="news-article"
+                            onClick={(e) => handleArticleClick(article, e)}
+                        >
+                            <div className="article-content">
+                                <h3>{article.title}</h3>
+
+                                <div className="article-metadata">
+                                    <div className="metadata-item">
+                                        🌐 <span>{article.source.title}</span>
+                                    </div>
+                                    <div className="metadata-item">
+                                        🕒 <span>{new Date(article.published_at).toLocaleString()}</span>
+                                    </div>
+                                    <div className="metadata-item">
+                                        🔗 <span>{article.domain}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="hover-line"></div>
+                        </div>
+                    ))
+                ) : (
+                    <div className="no-news">
+                        <p>No news available for {coin?.name}. Please check back later.</p>
                     </div>
-                ))
-            ) : (
-                <p>No news available for this coin.</p>
-            )}
+                )}
+            </div>
         </div>
     );
 };
