@@ -117,7 +117,6 @@ function News() {
                     </div>
                 </div>
             </div>
-
             <ActualNews coinSymbol={coin.symbol} />
         </div>
     );
