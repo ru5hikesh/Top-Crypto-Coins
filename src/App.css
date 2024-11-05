@@ -83,3 +83,15 @@
 .negative {
   color: #ff4136;
 }
+
+.footer img {
+  width: 15px;
+  height: 15px
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+  font-size: 15px;
+}
