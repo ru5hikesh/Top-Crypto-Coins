@@ -10,7 +10,7 @@ const ActualNews = () => {
     const [error, setError] = useState(null);
     const [votes, setVotes] = useState({});
     const API_URL = `https://cryptopanic.com/api/free/v1/posts/`;
-    const AUTH_TOKEN = '3c5f64f254c23f3e93e3502ca0d8b3b796be6733';
+    const AUTH_TOKEN = import.meta.env.VITE_CRYPTO_PANIC_AUTH_TOKEN;
 
     useEffect(() => {
         if (coin) {
