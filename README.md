@@ -5,6 +5,7 @@ A modern web application that displays the latest cryptocurrency prices using th
 - Displays top cryptocurrencies by CoinGecko API.
 - Real-time price updates
 - Responsive design
+- News of that perticular coin using CryptoPanick API
 
 ## Website Link:
 https://top-crypto-coins-ru5hikeshs-projects.vercel.app/
