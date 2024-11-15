@@ -9,3 +9,4 @@ A modern web application that displays the latest cryptocurrency prices using th
 
 ## Website Link:
 https://top-crypto-coins-ru5hikeshs-projects.vercel.app/
+
